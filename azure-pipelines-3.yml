@@ -15,12 +15,21 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- checkout: self
+  fetchDepth: 0
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
 
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'Devops_sonar'
+    organization: 'nehamkadam2002'
+    scannerMode: 'MSBuild'
+    projectKey: 'nehamkadam2002_devops_editor'
+    projectName: 'devops_editor'
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
@@ -32,3 +41,8 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: SonarCloudAnalyze@1
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
