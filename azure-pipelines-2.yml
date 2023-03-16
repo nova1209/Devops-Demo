@@ -32,3 +32,10 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Pay-As-You-Go(1)(2297dc7c-7998-40f8-80c0-2ba2af510b2f)'
+    appType: 'webApp'
+    WebAppName: 'devopseditor'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
