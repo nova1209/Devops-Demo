@@ -46,3 +46,9 @@ steps:
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+   targetPath: '$(Pipeline.Workspace)'
+   artifact: 'devopseditor'
+   publishLocation: 'pipeline'
